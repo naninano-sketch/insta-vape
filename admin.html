@@ -1,220 +1,149 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  
-  <!-- تحسين العرض لمتصفحات الأجهزة المحمولة مع منع التكبير وجعل التطبيق يملأ الشاشة -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  
-  <!-- إخفاء شريط العناوين في Safari على iOS عند إضافة التطبيق للشاشة الرئيسية -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="ADMIN">
-  
-  <!-- لون الخلفية أثناء تحميل الصفحة ليتناغم مع واجهة التطبيق -->
-  <meta name="theme-color" content="#ffffff">
-  
-  <title>ADMIN</title>
-  
-  <style>
-    /* إعادة تعيين كافة الهوامش والحشوات لضمان عدم وجود فراغات */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    /* جعل العنصر الجذر والجسم يأخذان كامل الشاشة دون أي تمرير غير مرغوب فيه */
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: #ffffff;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      /* منع أي تأثيرات سحب أو إعادة تحمين في iOS */
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    
-    /* الحاوية الرئيسية التي تحتوي على iframe - تأخذ كامل المساحة */
-    .fullscreen-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #ffffff;
-      z-index: 1;
-    }
-    
-    /* iframe بملء الشاشة مع إعدادات إضافية لضمان عدم وجود حدود أو هوامش */
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-      margin: 0;
-      padding: 0;
-      /* تحسين الأداء وجعل التمرير سلساً داخل iframe */
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-      /* ضمان أن iframe يملأ المساحة حتى في حالات الزوم */
-      min-width: 100%;
-      min-height: 100%;
-    }
-    
-    /* لأجهزة iOS، نتأكد من أن شريط الحالة لا يسبب إزاحة */
-    @supports (padding: max(0px)) {
-      body {
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-        padding-left: env(safe-area-inset-left);
-        padding-right: env(safe-area-inset-right);
-      }
-      /* تعويض الحشو لiframe بحيث يغطي المنطقة الآمنة أيضاً */
-      iframe {
-        width: calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right));
-        height: calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom));
-        transform: translate(calc(-1 * env(safe-area-inset-left)), calc(-1 * env(safe-area-inset-top)));
-      }
-    }
-    
-    /* إخفاء أي شريط تمرير على مستوى الصفحة الرئيسية */
-    body::-webkit-scrollbar {
-      display: none;
-    }
-    
-    /* ضمان أن لا تظهر أي خلفية إضافية أو حدود */
-    :root {
-      -webkit-tap-highlight-color: transparent;
-    }
-  </style>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no,
+viewport-fit=cover">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+
+<title>INSTA'VAP ADMIN</title>
+
+<!-- لوجو التطبيق -->
+<link rel="apple-touch-icon" href="https://i.ibb.co/k6g95JkP/insta-vape.jpg">
+<link rel="icon" type="image/png" href="https://i.ibb.co/k6g95JkP/insta-vape.jpg">
+
+<style>
+
+/* إزالة كل الفراغات */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ملء الشاشة */
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+
+/* الحاوية */
+.app{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+}
+
+/* iframe */
+iframe{
+    position:absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    border:none;
+    background:#000;
+
+    overflow:hidden;
+
+    -webkit-overflow-scrolling:touch;
+
+    transform:scale(1);
+    transform-origin:top left;
+}
+
+/* منع الزوم */
+body{
+    touch-action:manipulation;
+    -webkit-user-select:none;
+    user-select:none;
+}
+
+/* شاشة تحميل احترافية */
+.loader{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:9999;
+    transition:0.4s;
+}
+
+.loader img{
+    width:110px;
+    height:110px;
+    border-radius:28px;
+    object-fit:cover;
+    box-shadow:0 0 25px rgba(255,255,255,0.12);
+}
+
+.loader h1{
+    color:white;
+    margin-top:18px;
+    font-size:24px;
+    letter-spacing:2px;
+}
+
+.fade-out{
+    opacity:0;
+    visibility:hidden;
+}
+
+</style>
 </head>
+
 <body>
-  <div class="fullscreen-container">
-    <iframe 
-      src="https://instaapedz.lovable.app/admin"
-      allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      loading="eager"
-      importance="high"
-      referrerpolicy="strict-origin-when-cross-origin"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-      title="لوحة تحكم الإدارة">
-    </iframe>
-  </div>
-  
-  <!-- كود صغير للتأكد من إعادة ضبط iframe عند أي تغيير في حجم الشاشة (مثل تغيير الاتجاه) -->
-  <script>
-    (function() {
-      'use strict';
-      
-      // التأكد من أن iframe يأخذ الحجم الكامل حتى عند تغيير اتجاه الجهاز (portrait/landscape)
-      function adjustIframeSize() {
-        const iframeElement = document.querySelector('iframe');
-        const container = document.querySelector('.fullscreen-container');
-        if (!iframeElement) return;
-        
-        // الحصول على الأبعاد الفعلية للشاشة مع مراعاة safe-area
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        
-        // تطبيق مباشر على الـ iframe - تكرار للتأكد
-        iframeElement.style.width = width + 'px';
-        iframeElement.style.height = height + 'px';
-        
-        // إعادة تعيين أي تحويلات قد تتعارض مع الـ safe-area
-        if (window.CSS && CSS.supports('padding', 'max(0px)')) {
-          const computedStyle = getComputedStyle(document.body);
-          const padTop = parseFloat(computedStyle.paddingTop) || 0;
-          const padLeft = parseFloat(computedStyle.paddingLeft) || 0;
-          
-          if (padTop > 0 || padLeft > 0) {
-            iframeElement.style.transform = `translate(-${padLeft}px, -${padTop}px)`;
-            iframeElement.style.width = `calc(100% + ${padLeft}px)`;
-            iframeElement.style.height = `calc(100% + ${padTop}px)`;
-          }
-        } else {
-          // إزالة أي تحويل إن لم تكن هناك حاجة
-          iframeElement.style.transform = '';
-        }
-      }
-      
-      // استدعاء الدالة أول مرة بعد تحميل كل شيء
-      window.addEventListener('load', function() {
-        adjustIframeSize();
-        // تأخير بسيط جداً للتأكد من تطبيق الأبعاد بشكل صحيح خصوصاً على iOS
-        setTimeout(adjustIframeSize, 50);
-        setTimeout(adjustIframeSize, 300);
-      });
-      
-      // عند تغيير حجم النافذة (دوران الشاشة أو تغيير حجم الشاشة)
-      window.addEventListener('resize', function() {
-        adjustIframeSize();
-      });
-      
-      // مراقبة التغيرات في الاتجاه عبر حدث orientationchange
-      window.addEventListener('orientationchange', function() {
-        // إعادة ضبط بعد انتهاء دوران الشاشة
-        setTimeout(adjustIframeSize, 30);
-        setTimeout(adjustIframeSize, 100);
-      });
-      
-      // بعض إصدارات iOS تحتاج إلى إعادة تحجيم عند ظهور لوحة المفاتيح أو اختفائها
-      // مراقبة تغييرات viewport باستخدام IntersectionObserver اختياري ولكننا نستخدم resize كافٍ.
-      
-      // منع السحب لأسفل (pull-to-refresh) في iOS عند التمرير داخل الـ iframe، يحدث بشكل طبيعي
-      // لكننا نضمن عدم تدخل الحدث في المستوى الأعلى.
-      let startY = 0;
-      document.body.addEventListener('touchstart', function(e) {
-        startY = e.touches[0].clientY;
-      }, { passive: false });
-      
-      document.body.addEventListener('touchmove', function(e) {
-        // إذا كان الـ iframe يحتوي على تمرير خاص به، لا نمنع الحدث العام بشكل تام،
-        // لكن نمنع سحب الصفحة إذا كان المستخدم في أعلى الصفحة ولا يمكنه التمرير أكثر.
-        const iframe = document.querySelector('iframe');
-        if (iframe && iframe.contentWindow && iframe.contentWindow.scrollY === 0 && e.touches[0].clientY > startY) {
-          // لكن لتجربة مستخدم سلسة، لا نمنع بقسوة لأن ذلك قد يعطل التمرير داخل iframe.
-          // نترك الأمر لمعالجة iOS الأصلية، هذا السطر فقط لتحسين.
-        }
-      }, { passive: false });
-      
-      // إضافة طبقة إضافية لمحاولة طلب التركيز على iframe أو إعادة تحميل عند الأخطاء (اختياري)
-      // في حال حدوث خطأ في تحميل الصفحة، يبقى اللون الأبيض ثابتاً كما هو مطلوب.
-      const iframe = document.querySelector('iframe');
-      if (iframe) {
-        iframe.onerror = function() {
-          console.warn('حدث خطأ في تحميل iframe، لكن الصفحة تظل كاملة دون تعديل');
-        };
-      }
-      
-      // نضمن عدم وجود أي إعادة توجيه أو تغيير في src دون قصد
-      let originalSrc = iframe ? iframe.src : '';
-      if (iframe && originalSrc !== 'https://instaapedz.lovable.app/admin') {
-        // إذا تم التلاعب بالقيمة نعيدها إلى العنوان الأصلي (لأقصى درجات الثبات)
-        Object.defineProperty(iframe, 'src', {
-          get: function() { return originalSrc; },
-          set: function(value) {
-            if (value !== originalSrc) {
-              // لا نسمح بتغيير الرابط الأصلي
-              console.warn('تم منع تغيير مصدر iframe');
-              return;
-            }
-            originalSrc = value;
-          }
-        });
-      }
-      
-      // منع أي تعديلات على الكود لاحقاً عبر console
-      // هذا ليس أماناً كاملاً لكنه يساعد في الحفاظ على التطبيق كما هو دون إضافات خارجية.
-      // لا نعدل أي شيء خارج عن النطاق المطلوب.
-    })();
-  </script>
+
+<!-- شاشة البداية -->
+<div class="loader" id="loader">
+    <img src="https://i.ibb.co/k6g95JkP/insta-vape.jpg">
+    <h1>INSTA'VAP</h1>
+</div>
+
+<!-- التطبيق -->
+<div class="app">
+
+<iframe
+src="https://instaapedz.lovable.app/admin"
+allowfullscreen
+loading="eager">
+</iframe>
+
+</div>
+
+<script>
+
+/* إخفاء شاشة التحميل */
+window.onload = () => {
+    setTimeout(() => {
+        document
+        .getElementById("loader")
+        .classList
+        .add("fade-out");
+    }, 1800);
+};
+
+</script>
+
 </body>
 </html>
